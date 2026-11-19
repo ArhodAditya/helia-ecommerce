@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once 'config/db.php';
+require_once 'includes/product_helpers.php';
 require_once 'includes/ui_helpers.php';
 
 function showStars($rating)
@@ -148,11 +149,7 @@ require_once 'includes/header.php';
             <div class="card-body">
                 <?php if ($selectedProduct): ?>
                     <div class="d-flex align-items-center gap-3 mb-3">
-                        <?php if (!empty($selectedProduct['image'])): ?>
-                            <img src="<?= e($selectedProduct['image']) ?>" alt="<?= e($selectedProduct['name']) ?>" class="product-thumb product-thumb-lg">
-                        <?php else: ?>
-                            <div class="product-thumb product-thumb-lg thumb-placeholder"><i class="bi bi-image"></i></div>
-                        <?php endif; ?>
+                        <?= renderProductImage($selectedProduct['image'], $selectedProduct['name'], 'product-thumb product-thumb-lg', 'md') ?>
                         <div>
                             <h2 class="h6 fw-bold mb-1"><?= e($selectedProduct['name']) ?></h2>
                             <div class="text-body-secondary">BDT <?= number_format($selectedProduct['price'], 2) ?></div>

@@ -1,6 +1,7 @@
 <?php
 require_once 'auth_check.php';
 require_once '../config/db.php';
+require_once '../includes/product_helpers.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
     $stmt = $pdo->prepare('DELETE FROM reviews WHERE id = ?');
@@ -126,11 +127,7 @@ require_once 'includes/header.php';
                         <tr>
                             <td>
                                 <div class="d-flex align-items-center gap-2">
-                                    <?php if (!empty($review['product_image'])): ?>
-                                        <img src="../<?= e($review['product_image']) ?>" alt="<?= e($review['product_name']) ?>" class="product-thumb">
-                                    <?php else: ?>
-                                        <div class="product-thumb thumb-placeholder"><i class="bi bi-image"></i></div>
-                                    <?php endif; ?>
+                                    <?= renderProductImage($review['product_image'], $review['product_name'], 'product-thumb', 'sm', '../') ?>
                                     <span class="fw-semibold"><?= e($review['product_name']) ?></span>
                                 </div>
                             </td>

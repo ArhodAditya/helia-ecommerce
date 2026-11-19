@@ -1,6 +1,7 @@
 <?php
 require_once 'includes/user_auth.php';
 require_once 'config/db.php';
+require_once 'includes/product_helpers.php';
 
 $userId = $_SESSION['user_id'];
 $orderId = $_GET['id'] ?? '';
@@ -96,11 +97,7 @@ require_once 'includes/header.php';
                                     <tr>
                                         <td>
                                             <div class="d-flex align-items-center gap-3">
-                                                <?php if (!empty($item['image'])): ?>
-                                                    <img src="<?= e($item['image']) ?>" alt="<?= e($item['name']) ?>" class="product-thumb">
-                                                <?php else: ?>
-                                                    <div class="product-thumb thumb-placeholder"><i class="bi bi-image"></i></div>
-                                                <?php endif; ?>
+                                                <?= renderProductImage($item['image'] ?? '', $item['name'] ?? '', 'product-thumb', 'sm') ?>
                                                 <div>
                                                     <div class="fw-semibold"><?= e($item['name'] ?? 'Product no longer available') ?></div>
                                                     <?php if (!empty($item['color'])): ?>

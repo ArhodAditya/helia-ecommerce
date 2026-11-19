@@ -80,7 +80,7 @@ require_once 'includes/header.php';
             <div class="col">
                 <div class="card product-card h-100 border-0 shadow-sm">
                     <a href="product_details.php?id=<?= $product['id'] ?>" class="product-card-image">
-                        <img src="<?= e(getProductImage($product['image'])) ?>" alt="<?= e($product['name']) ?>" loading="lazy">
+                        <?= renderProductImage($product['image'], $product['name'], '', 'lg') ?>
                     </a>
                     <div class="card-body d-flex flex-column">
                         <div class="small text-body-secondary mb-1"><?= e($product['category_name'] ?? 'Uncategorized') ?></div>

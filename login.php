@@ -41,7 +41,7 @@ require_once 'includes/header.php';
 <div class="row justify-content-center">
     <div class="col-sm-10 col-md-7 col-lg-5 col-xl-4">
         <div class="text-center mb-4">
-            <span class="brand-logo brand-logo-lg mb-3"><i class="bi bi-bag-heart-fill"></i></span>
+            <?= heliaMark('helia-mark-xl mx-auto mb-3', 72) ?>
             <h1 class="h4 fw-bold mb-1">Welcome Back</h1>
             <p class="text-body-secondary mb-0">Login to your Helia account</p>
         </div>

@@ -122,7 +122,7 @@ require_once 'includes/header.php';
                                     <tr>
                                         <td>
                                             <div class="d-flex align-items-center gap-2">
-                                                <img src="<?= e(getProductImage($item['image'] ?? '')) ?>" alt="" class="product-thumb">
+                                                <?= renderProductImage($item['image'] ?? '', '', 'product-thumb', 'sm') ?>
                                                 <div>
                                                     <div class="fw-semibold"><?= e($item['name'] ?? 'Product no longer available') ?></div>
                                                     <?php if (!empty($item['color'])): ?>

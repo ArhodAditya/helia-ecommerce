@@ -1,8 +1,18 @@
 <?php
-$host = 'localhost';
-$dbName = 'helia_db';
-$dbUser = 'root';
-$dbPass = '';
+$serverName = $_SERVER['SERVER_NAME'] ?? 'localhost';
+$isLocal = in_array($serverName, ['localhost', '127.0.0.1', '::1']);
+
+if ($isLocal) {
+    $host = 'localhost';
+    $dbName = 'helia_db';
+    $dbUser = 'root';
+    $dbPass = '';
+} else {
+    $host = 'sql111.infinityfree.com';
+    $dbName = 'if0_43475130_helia_db';
+    $dbUser = 'if0_43475130';
+    $dbPass = 'B0521T10AM';
+}
 
 date_default_timezone_set('Asia/Dhaka');
 

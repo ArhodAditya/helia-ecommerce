@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../includes/brand.php';
+
 $pageTitle = $pageTitle ?? 'Admin';
 $activePage = $activePage ?? basename($_SERVER['PHP_SELF']);
 
@@ -24,19 +26,22 @@ $menuItems = [
     </script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link href="assets/style.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wdth,wght@75..125,400..800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="../assets/css/theme.css?v=3" rel="stylesheet">
+    <link href="assets/style.css?v=3" rel="stylesheet">
 </head>
 <body>
 <div class="d-flex">
     <aside class="sidebar offcanvas-lg offcanvas-start border-end" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
         <div class="offcanvas-header border-bottom">
-            <h5 class="offcanvas-title fw-bold" id="sidebarLabel">Helia Admin</h5>
+            <h5 class="offcanvas-title" id="sidebarLabel"><?= heliaLogo('Admin') ?></h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebar" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body flex-column p-3">
-            <a href="index.php" class="d-none d-lg-flex align-items-center gap-2 mb-4 px-2 text-decoration-none">
-                <span class="brand-logo"><i class="bi bi-bag-heart-fill"></i></span>
-                <span class="fs-5 fw-bold text-body">Helia Admin</span>
+            <a href="index.php" class="sidebar-brand d-none d-lg-flex mb-4 px-2 text-decoration-none" aria-label="Helia Admin dashboard">
+                <?= heliaLogo('Admin') ?>
             </a>
 
             <ul class="nav nav-pills flex-column gap-1">
@@ -68,8 +73,9 @@ $menuItems = [
             <button id="themeToggle" class="btn btn-outline-secondary btn-sm" type="button">
                 <i class="bi bi-moon-stars"></i> Dark
             </button>
-            <span class="d-none d-sm-inline text-body-secondary small">
-                <i class="bi bi-person-circle me-1"></i><?= e($_SESSION['admin_name']) ?>
+            <span class="admin-user d-none d-sm-inline-flex">
+                <span class="admin-avatar" aria-hidden="true"><?= e(strtoupper(substr($_SESSION['admin_name'], 0, 1))) ?></span>
+                <span class="small fw-semibold"><?= e($_SESSION['admin_name']) ?></span>
             </span>
         </header>
 

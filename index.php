@@ -3,6 +3,7 @@ session_start();
 require_once 'config/db.php';
 require_once 'includes/product_helpers.php';
 require_once 'includes/ui_helpers.php';
+require_once 'includes/brand.php';
 
 $categories = $pdo->query('
     SELECT categories.id, categories.name, COUNT(products.id) AS product_count
@@ -28,43 +29,75 @@ $pageTitle = 'Home';
 require_once 'includes/header.php';
 ?>
 
-<section class="hero shadow-sm p-4 p-md-5 mb-5">
-    <div class="row align-items-center g-4">
+<section class="hero mb-4 mb-md-5">
+    <div class="row align-items-center g-4 g-xl-5">
         <div class="col-lg-7">
-            <span class="badge rounded-pill text-bg-warning mb-3"><i class="bi bi-stars"></i> Welcome to Helia</span>
-            <h1 class="display-5 fw-bold mb-3">Helia: Smart Online Shopping Hub</h1>
-            <p class="lead text-body-secondary mb-4">Find electronics, fashion and more in one place. Search for what you need, compare prices and check stock before you buy.</p>
+            <span class="hero-eyebrow"><?= heliaMark('', 22) ?>Helia &middot; Smart Online Shopping Hub</span>
+            <h1 class="hero-title">From cricket bats to Jamdani, <span>all in one cart.</span></h1>
+            <p class="hero-lead">Gadgets, sportswear, fashion, home essentials, books and personal care for shoppers across Bangladesh. Check live stock, pay your way and track every parcel to your door.</p>
 
-            <form method="GET" action="search.php" class="mb-3" role="search">
-                <div class="input-group input-group-lg">
-                    <span class="input-group-text bg-body"><i class="bi bi-search"></i></span>
-                    <input type="search" class="form-control" name="q" placeholder="What are you looking for?" aria-label="Search products" required>
-                    <button class="btn btn-primary px-4" type="submit">Search</button>
+            <form method="GET" action="search.php" class="hero-search" role="search">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-search"></i></span>
+                    <input type="search" class="form-control" name="q" placeholder="Search earbuds, panjabi, kettle..." aria-label="Search products" required>
+                    <button class="btn btn-sun" type="submit">Search</button>
                 </div>
             </form>
 
-            <a href="products.php" class="btn btn-outline-primary btn-lg">
-                <i class="bi bi-bag"></i> Shop All Products
-            </a>
+            <div class="d-flex flex-wrap align-items-center gap-2 gap-sm-3">
+                <a href="products.php" class="btn btn-ghost-light">
+                    <i class="bi bi-bag me-1"></i> Shop All Products
+                </a>
+                <a href="order_tracking.php" class="hero-link">
+                    <i class="bi bi-truck"></i> Track an order
+                </a>
+            </div>
         </div>
+
         <div class="col-lg-5">
-            <div class="row g-3 text-center">
-                <div class="col-4 col-lg-12">
-                    <div class="bg-body rounded-4 shadow-sm p-3">
-                        <div class="h3 fw-bold text-primary mb-0"><?= $totalProducts ?></div>
-                        <div class="small text-body-secondary">Products</div>
+            <div class="hero-panel">
+                <div class="row g-2 text-center">
+                    <div class="col-4">
+                        <div class="hero-stat">
+                            <div class="hero-stat-value"><?= $totalProducts ?></div>
+                            <div class="hero-stat-label">Products</div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="hero-stat">
+                            <div class="hero-stat-value"><?= count($categories) ?></div>
+                            <div class="hero-stat-label">Categories</div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="hero-stat">
+                            <div class="hero-stat-value"><?= $totalReviews ?></div>
+                            <div class="hero-stat-label">Reviews</div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-4 col-lg-6">
-                    <div class="bg-body rounded-4 shadow-sm p-3">
-                        <div class="h3 fw-bold text-primary mb-0"><?= count($categories) ?></div>
-                        <div class="small text-body-secondary">Categories</div>
+
+                <div class="hero-perks">
+                    <div class="d-flex align-items-center gap-3">
+                        <span class="hero-perk-icon"><i class="bi bi-wallet2"></i></span>
+                        <div>
+                            <div class="hero-perk-title">Pay your way</div>
+                            <div class="hero-perk-text">Cash on Delivery, bKash or Nagad</div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-4 col-lg-6">
-                    <div class="bg-body rounded-4 shadow-sm p-3">
-                        <div class="h3 fw-bold text-primary mb-0"><?= $totalReviews ?></div>
-                        <div class="small text-body-secondary">Reviews</div>
+                    <div class="d-flex align-items-center gap-3">
+                        <span class="hero-perk-icon"><i class="bi bi-box-seam"></i></span>
+                        <div>
+                            <div class="hero-perk-title">Live stock</div>
+                            <div class="hero-perk-text">See what is available before you order</div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-3">
+                        <span class="hero-perk-icon"><i class="bi bi-geo-alt"></i></span>
+                        <div>
+                            <div class="hero-perk-title">Track every order</div>
+                            <div class="hero-perk-text">From Pending to Delivered, step by step</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -73,23 +106,27 @@ require_once 'includes/header.php';
 </section>
 
 <section class="mb-5">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2 class="h4 fw-bold mb-0">Shop by Category</h2>
-        <a href="categories.php" class="text-decoration-none">All categories <i class="bi bi-arrow-right"></i></a>
+    <div class="section-head">
+        <div>
+            <h2 class="section-title">Shop by Category</h2>
+            <p class="section-sub">Pick a department to see everything in it.</p>
+        </div>
+        <a href="categories.php" class="section-link">All categories <i class="bi bi-arrow-right"></i></a>
     </div>
 
     <?php if (empty($categories)): ?>
         <p class="text-body-secondary">No categories yet.</p>
     <?php else: ?>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-3">
+        <div class="row row-cols-2 row-cols-md-3 row-cols-xl-6 g-3">
             <?php foreach ($categories as $category): ?>
                 <div class="col">
-                    <a href="categories.php?id=<?= $category['id'] ?>" class="card category-card h-100 shadow-sm text-decoration-none">
-                        <div class="card-body d-flex align-items-center gap-3">
-                            <span class="category-icon"><i class="bi bi-tag"></i></span>
+                    <a href="categories.php?id=<?= $category['id'] ?>" class="card category-card category-tile h-100 text-decoration-none">
+                        <div class="card-body">
+                            <?= categoryIcon($category['name'], null, 28) ?>
+                            <i class="bi bi-arrow-up-right category-go" aria-hidden="true"></i>
                             <div>
-                                <div class="fw-semibold text-body"><?= e($category['name']) ?></div>
-                                <div class="small text-body-secondary"><?= $category['product_count'] ?> product(s)</div>
+                                <div class="category-name"><?= e($category['name']) ?></div>
+                                <div class="category-count"><?= $category['product_count'] ?> product(s)</div>
                             </div>
                         </div>
                     </a>
@@ -100,15 +137,18 @@ require_once 'includes/header.php';
 </section>
 
 <section>
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2 class="h4 fw-bold mb-0"><i class="bi bi-fire text-danger"></i> Trending Products</h2>
-        <a href="products.php" class="text-decoration-none">View all <i class="bi bi-arrow-right"></i></a>
+    <div class="section-head">
+        <div>
+            <h2 class="section-title">Trending Products</h2>
+            <p class="section-sub">Popular picks shoppers keep coming back for.</p>
+        </div>
+        <a href="products.php" class="section-link">View all <i class="bi bi-arrow-right"></i></a>
     </div>
 
     <?php if (empty($trendingProducts)): ?>
         <?= renderEmptyState('No trending products right now', 'Check back soon, or browse everything we have.', 'Shop All Products', 'products.php', 'bi-fire') ?>
     <?php else: ?>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 product-grid">
             <?php foreach ($trendingProducts as $product): ?>
                 <?php include 'includes/product_card.php'; ?>
             <?php endforeach; ?>

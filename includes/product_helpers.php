@@ -2,14 +2,14 @@
 function renderStockBadge($stock)
 {
     if ($stock > 5) {
-        return '<span class="badge text-bg-success">In Stock</span>';
+        return '<span class="badge stock-badge stock-in"><span class="stock-dot"></span>In Stock</span>';
     }
 
     if ($stock >= 1) {
-        return '<span class="badge text-bg-warning">Low Stock</span>';
+        return '<span class="badge stock-badge stock-low"><span class="stock-dot"></span>Low Stock</span>';
     }
 
-    return '<span class="badge text-bg-danger">Out of Stock</span>';
+    return '<span class="badge stock-badge stock-out"><span class="stock-dot"></span>Out of Stock</span>';
 }
 
 function getColorList($colorVariants)
@@ -38,20 +38,44 @@ function renderColorSwatches($colorVariants)
     return $html;
 }
 
-function getProductImage($image)
+function productImageExists($image)
 {
-    if (!empty($image) && file_exists($image)) {
-        return $image;
+    $image = trim((string) $image);
+
+    if ($image === '' || strpos($image, 'uploads/') !== 0 || strpos($image, '..') !== false) {
+        return false;
     }
 
-    $svg = '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">'
-        . '<rect width="400" height="400" fill="#6c757d" fill-opacity="0.15"/>'
-        . '<circle cx="165" cy="160" r="22" fill="#6c757d" fill-opacity="0.45"/>'
-        . '<path d="M110 270 L170 200 L210 245 L245 210 L290 270 Z" fill="#6c757d" fill-opacity="0.45"/>'
-        . '<text x="200" y="320" font-family="Arial, sans-serif" font-size="22" fill="#6c757d" text-anchor="middle">No Image</text>'
-        . '</svg>';
+    return is_file(dirname(__DIR__) . '/' . $image);
+}
 
-    return 'data:image/svg+xml;charset=UTF-8,' . rawurlencode($svg);
+function getProductImage($image)
+{
+    if (productImageExists($image)) {
+        return trim((string) $image);
+    }
+
+    return 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+}
+
+function renderProductImage($image, $alt = '', $class = '', $size = 'md', $pathPrefix = '', $lazy = true)
+{
+    $class = trim((string) $class);
+    $alt = (string) $alt;
+
+    if (productImageExists($image)) {
+        return '<img src="' . e($pathPrefix . trim((string) $image)) . '" alt="' . e($alt) . '"'
+            . ($class !== '' ? ' class="' . e($class) . '"' : '')
+            . ($lazy ? ' loading="lazy"' : '') . '>';
+    }
+
+    $classes = 'photo-empty photo-empty-' . $size . ($class !== '' ? ' ' . $class : '');
+    $label = $alt !== '' ? ' role="img" aria-label="' . e('No photo of ' . $alt) . '"' : ' aria-hidden="true"';
+
+    return '<div class="' . e($classes) . '"' . $label . '>'
+        . '<i class="bi bi-image" aria-hidden="true"></i>'
+        . '<span>No Photo</span>'
+        . '</div>';
 }
 
 function renderStars($rating)

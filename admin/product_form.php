@@ -1,6 +1,7 @@
 <?php
 require_once 'auth_check.php';
 require_once '../config/db.php';
+require_once '../includes/product_helpers.php';
 
 $id = $_GET['id'] ?? '';
 $isEdit = $id !== '';
@@ -215,7 +216,7 @@ require_once 'includes/header.php';
             <div class="card border-0 shadow-sm mb-3">
                 <div class="card-body">
                     <label for="image" class="form-label">Product Image</label>
-                    <?php if (!empty($product['image'])): ?>
+                    <?php if (productImageExists($product['image'])): ?>
                         <img id="imagePreview" src="../<?= e($product['image']) ?>" alt="Current product image" class="image-preview mb-2">
                     <?php else: ?>
                         <img id="imagePreview" alt="Image preview" class="image-preview mb-2 d-none">

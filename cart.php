@@ -83,7 +83,7 @@ require_once 'includes/header.php';
                                 <div class="col-md-6">
                                     <div class="d-flex align-items-center gap-3">
                                         <a href="product_details.php?id=<?= $item['id'] ?>">
-                                            <img src="<?= e(getProductImage($item['image'])) ?>" alt="<?= e($item['name']) ?>" class="product-thumb product-thumb-lg">
+                                            <?= renderProductImage($item['image'], $item['name'], 'product-thumb product-thumb-lg', 'md') ?>
                                         </a>
                                         <div>
                                             <a href="product_details.php?id=<?= $item['id'] ?>" class="fw-semibold text-body text-decoration-none"><?= e($item['name']) ?></a>

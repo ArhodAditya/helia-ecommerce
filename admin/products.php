@@ -1,6 +1,7 @@
 <?php
 require_once 'auth_check.php';
 require_once '../config/db.php';
+require_once '../includes/product_helpers.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
     $stmt = $pdo->prepare('SELECT image FROM products WHERE id = ?');
@@ -138,11 +139,7 @@ require_once 'includes/header.php';
                         ?>
                         <tr>
                             <td>
-                                <?php if (!empty($product['image'])): ?>
-                                    <img src="../<?= e($product['image']) ?>" alt="<?= e($product['name']) ?>" class="product-thumb">
-                                <?php else: ?>
-                                    <div class="product-thumb thumb-placeholder"><i class="bi bi-image"></i></div>
-                                <?php endif; ?>
+                                <?= renderProductImage($product['image'], $product['name'], 'product-thumb', 'sm', '../') ?>
                             </td>
                             <td class="fw-semibold"><?= e($product['name']) ?></td>
                             <td><?= e($product['category_name'] ?? 'Uncategorized') ?></td>

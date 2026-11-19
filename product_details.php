@@ -61,7 +61,7 @@ require_once 'includes/header.php';
     <div class="card-body p-3 p-md-4">
         <div class="row g-4">
             <div class="col-md-6">
-                <img src="<?= e(getProductImage($product['image'])) ?>" alt="<?= e($product['name']) ?>" class="product-main-image">
+                <?= renderProductImage($product['image'], $product['name'], 'product-main-image', 'xl', '', false) ?>
             </div>
 
             <div class="col-md-6">

@@ -4,11 +4,16 @@
     <div class="container py-4 py-md-5">
         <div class="row g-4">
             <div class="col-md-5">
-                <a href="index.php" class="d-inline-flex align-items-center gap-2 fw-bold fs-5 text-body mb-2">
-                    <span class="brand-logo"><i class="bi bi-bag-heart-fill"></i></span>
-                    Helia
+                <a href="index.php" class="footer-brand d-inline-flex mb-3" aria-label="Helia home">
+                    <?= heliaLogo() ?>
                 </a>
-                <p class="small text-body-secondary mb-0">Helia is a smart online shopping hub for electronics, fashion and more. Browse products, check stock, track your orders and share reviews, all in one place.</p>
+                <p class="small text-body-secondary mb-3">Helia is a smart online shopping hub for shoppers across Bangladesh. Browse gadgets, sportswear, fashion, home essentials, books and personal care, check live stock, track your orders and share reviews, all in one place.</p>
+                <div class="footer-pay" aria-label="Payment options">
+                    <span><i class="bi bi-cash-coin"></i>Cash on Delivery</span>
+                    <span><i class="bi bi-phone"></i>bKash</span>
+                    <span><i class="bi bi-phone"></i>Nagad</span>
+                    <span><i class="bi bi-credit-card"></i>Visa</span>
+                </div>
             </div>
             <div class="col-6 col-md-3 offset-md-1">
                 <h2 class="h6 fw-semibold mb-3">Quick Shop</h2>
